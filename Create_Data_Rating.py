@@ -9,3 +9,7 @@ print(ratings)
 #konversi DataFrame ke List
 listMovieRatings = ratings.values.tolist()
 
+"""
+Hasilnya adalah [[User ID, Movie ID, Rating], [1, 1, 5]....[943, 1330, 3]]
+"""
+
