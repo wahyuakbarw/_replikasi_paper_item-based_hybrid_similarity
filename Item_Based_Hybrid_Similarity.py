@@ -15,7 +15,9 @@ tabelRating = [[3,2,5,4],
 [2,0,5,5]]
 
 def mean(tabelRating, item):
-    item-=1;jumlah=0;banyak=0;
+    item-=1
+    jumlah=0
+    banyak=0
     for i in range(len(tabelRating)):
         if (tabelRating[i][item]!=0):
             jumlah+= tabelRating[i][item]
@@ -36,8 +38,8 @@ def hybrid(hasilCosinus, hasilItem, user, item):
 
             penyebut += abs(hasilCosinus[item-1][k-1] * hasilItem[item-1][k-1])
 
-    print(mean(tabelRating, item), pembilang, penyebut)
-    return (mean(tabelRating, item) + (pembilang/penyebut))
+    print(rataRataItem, pembilang, penyebut)
+    return (rataRataItem + (pembilang/penyebut))
 print(hybrid(hasilCosinus, hasilItem, 2, 4))
 print(hybrid(hasilCosinus, hasilItem, 3, 3))
 print(hybrid(hasilCosinus, hasilItem, 5, 2))
