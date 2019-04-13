@@ -30,23 +30,16 @@ def hybrid(hasilCosinus, hasilItem, user, item):
     for k in range(1, len(hasilCosinus)+1):
         #Tetangga dan User sudah memprediksi item tetangga
         if (k-1 != item-1 and tabelRating[user-1][k-1] != 0):
-            # print("item = ",item)
-            # print("k = ",k)
-            
+
             pembilang += (hasilCosinus[item-1][k-1] * hasilItem[item-1][k-1] *
                 (tabelRating[user-1][k-1] - mean(tabelRating, k)))
 
             penyebut += abs(hasilCosinus[item-1][k-1] * hasilItem[item-1][k-1])
 
-    print(rataRataItem, pembilang, penyebut)
     return (rataRataItem + (pembilang/penyebut))
-print(hybrid(hasilCosinus, hasilItem, 2, 4))
-print(hybrid(hasilCosinus, hasilItem, 3, 3))
-print(hybrid(hasilCosinus, hasilItem, 5, 2))
-# Hasil = []
-# for i in range(1, len(hasilCosinus[0])+1):
-#     listPerItem = []
-#     for j in range(1, len(hasilCosinus[0])+1):
-#         listPerItem.append(hybrid(hasilCosinus,hasilItem, i, j))
-#     Hasil.append(listPerItem)
-#     print("Hasil = "+str(Hasil))
+
+for row in range(len(tabelRating)):
+    for column in range(len(tabelRating[row])):
+        if (tabelRating[row][column] == 0):
+            print("Prediksi Rating pada User %i Item %i adalah %s"% (row+1, column+1, 
+            hybrid(hasilCosinus, hasilItem, row+1, column+1)) )

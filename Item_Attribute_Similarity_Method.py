@@ -1,10 +1,11 @@
-listData = [[1, 0, 1, 1, 0],
-            [0, 1, 0, 0, 1],
-            [1, 0, 1, 1, 1],
-            [0, 1, 1, 1, 1]]
+dataAttribute = [[1, 0, 1, 1, 0],
+                 [0, 1, 0, 0, 1],
+                 [1, 0, 1, 1, 1],
+                 [0, 1, 1, 1, 1]]
 
-temp_x = listData
-hasilx = []
+
+temp = dataAttribute
+hasil_similarity_item_attribute = []
 
 def calculate(a, b):
     hasil = 0
@@ -16,11 +17,11 @@ def calculate(a, b):
     return hasil/len(a)
     
 
-for a in range(len(listData)):
+for a in range(len(dataAttribute)):
     k = []
-    for b in range(len(temp_x)):
-        k.append(calculate(listData[a], temp_x[b]))
-    hasilx.append(k)
+    for b in range(len(temp)):
+        k.append(calculate(dataAttribute[a], temp[b]))
+    hasil_similarity_item_attribute.append(k)
 
-for i in hasilx:
+for i in hasil_similarity_item_attribute:
     print(i)

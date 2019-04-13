@@ -11,7 +11,7 @@ def Cosine(matrik, item_t, item_c):
             penyebut_c += (matrik[index][item_c] ** 2)
             
     penyebut = ((penyebut_t)**0.5) * ((penyebut_c)**0.5)
-    return pembilang/float(penyebut)
+    return pembilang/penyebut
 
 hasil = []
 def matriksim(matrik,y):
@@ -28,4 +28,6 @@ dataRating = [[3,2,5,4],
 [2,0,5,5]]
 
 hasilItemBased = matriksim(dataRating,hasil)
-print(hasilItemBased)
+
+for i in hasilItemBased:
+    print(i)
