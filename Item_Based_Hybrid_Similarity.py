@@ -1,4 +1,4 @@
-hasilCosinus = [[1.0, 0.7970533969860858, 0.9788389158235425, 0.9502621934663978],
+hasilCosine = [[1.0, 0.7970533969860858, 0.9788389158235425, 0.9502621934663978],
 [0.7970533969860858, 1.0, 0.5554920598635308, 0.847579379526013],
 [0.9788389158235425, 0.5554920598635308, 0.9999999999999999, 0.9897782665572894],
 [0.9502621934663978, 0.847579379526013, 0.9897782665572894, 1.0]]
@@ -14,6 +14,9 @@ tabelRating = [[3,2,5,4],
 [2,1,3,2],
 [2,0,5,5]]
 
+#Menduplikasi tabel rating
+tabelRating_template = tabelRating
+
 def mean(tabelRating, item):
     item-=1
     jumlah=0
@@ -24,17 +27,17 @@ def mean(tabelRating, item):
             banyak+=1
     return jumlah/banyak
 
-def hybrid(hasilCosinus, hasilItem, user, item):
+def hybrid(hasilCosine, hasilItem, user, item):
     rataRataItem = mean(tabelRating, item)
     pembilang, penyebut = 0,0
-    for k in range(1, len(hasilCosinus)+1):
+    for k in range(1, len(hasilCosine)+1):
         #Tetangga dan User sudah memprediksi item tetangga
         if (k-1 != item-1 and tabelRating[user-1][k-1] != 0):
 
-            pembilang += (hasilCosinus[item-1][k-1] * hasilItem[item-1][k-1] *
+            pembilang += (hasilCosine[item-1][k-1] * hasilItem[item-1][k-1] *
                 (tabelRating[user-1][k-1] - mean(tabelRating, k)))
 
-            penyebut += abs(hasilCosinus[item-1][k-1] * hasilItem[item-1][k-1])
+            penyebut += abs(hasilCosine[item-1][k-1] * hasilItem[item-1][k-1])
 
     return (rataRataItem + (pembilang/penyebut))
 
@@ -42,4 +45,6 @@ for row in range(len(tabelRating)):
     for column in range(len(tabelRating[row])):
         if (tabelRating[row][column] == 0):
             print("Prediksi Rating pada User %i Item %i adalah %s"% (row+1, column+1, 
-            hybrid(hasilCosinus, hasilItem, row+1, column+1)) )
+            hybrid(hasilCosine, hasilItem, row+1, column+1)) )
+            tabelRating_template[row][column] = hybrid(hasilCosine, hasilItem, row+1, column+1)
+print (tabelRating_template)

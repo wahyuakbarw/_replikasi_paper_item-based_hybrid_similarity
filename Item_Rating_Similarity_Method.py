@@ -27,6 +27,7 @@ dataRating = [[3,2,5,4],
 [2,1,3,2],
 [2,0,5,5]]
 
+
 hasilItemBased = matriksim(dataRating,hasil)
 
 for i in hasilItemBased:
