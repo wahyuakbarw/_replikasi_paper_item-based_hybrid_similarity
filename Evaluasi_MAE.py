@@ -12,7 +12,6 @@
 # print("Training \n", ratings_training)
 # print("Test \n", ratings_test)
 
-from Item_Rating_Similarity_Method import Cosine
 from Item_Based_Hybrid_Similarity import hybrid
 
 dataTraining = [[3,2,5,4],
