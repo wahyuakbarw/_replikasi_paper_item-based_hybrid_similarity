@@ -1,19 +1,20 @@
 import time
 start = time.time()
-from Import_Data_Training import list_ratings_test
-from Create_Data_Rating import createDataRating
+# from Import_Data_Training import list_ratings_test
+# from Create_Data_Rating import createDataRating
+# from Item_Rating_Similarity_Method import hasilItemBased, dataRating
 from Item_Attribute_Similarity_Method import hasilItemAttribute
-from Item_Rating_Similarity_Method import hasilItemBased, dataRating
+from Read_File_Movie_Rating_Csv import readFileToList
 from Item_Based_Hybrid_Similarity_V2 import hybrid
 import matplotlib.pyplot as plt
 import numpy as np
 
 # Data Training
-dataTraining = dataRating
+dataTraining = readFileToList("dataTraining1.csv")
 # Data Test
-dataTest = createDataRating(list_ratings_test)
+dataTest = readFileToList("dataTest1.csv")
 # Hasil Item Based Similarity
-hasilItemBased = hasilItemBased
+hasilItemBased = readFileToList("hasilItemRatingSimilarity1.csv")
 # Hasil Item Attribute Similarity
 hasilItemAttribute = hasilItemAttribute
 

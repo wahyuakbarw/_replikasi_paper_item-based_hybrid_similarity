@@ -40,20 +40,22 @@ def matriksim(matrik,y):
 # [2,0,5,5]]
 # dataRating = createDataRating(list_ratings_training)
 
-import csv
-import time
-start = time.time()
-from Read_File_Movie_Rating_Csv import readFileToList
-dataRating = readFileToList("dataTraining3.csv")
-hasilItemBased = matriksim(dataRating,hasil)
+''' Proses menyimpan File hasil item rating similarity '''
+# import csv
+# import time
+# start = time.time()
+# from Read_File_Movie_Rating_Csv import readFileToList
+# dataRating = readFileToList("dataTraining1.csv")
+# hasilItemBased = matriksim(dataRating,hasil)
 
-with open('hasilItemRatingSimilarity3.csv', 'w', newline='') as csvFile:
-    writer = csv.writer(csvFile)
-    writer.writerows(hasilItemBased)
+# with open('hasilItemRatingSimilarity1.csv', 'w', newline='') as csvFile:
+#     writer = csv.writer(csvFile)
+#     writer.writerows(hasilItemBased)
+''' =========================================  '''
 
-csvFile.close()
-end = time.time()
-print(end - start)
+# csvFile.close()
+# end = time.time()
+# print(end - start)
 
 # for i in hasilItemBased:
 #     print(i)
