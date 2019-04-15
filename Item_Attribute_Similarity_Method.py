@@ -1,27 +1,23 @@
-dataAttribute = [[1, 0, 1, 1, 0],
-                 [0, 1, 0, 0, 1],
-                 [1, 0, 1, 1, 1],
-                 [0, 1, 1, 1, 1]]
+from Create_Data_Attribute import newListMovies
+print("Item_Attribute_Similarity_Method.py")
 
-
+# dataAttribute = [[1, 0, 1, 1, 0],
+#                  [0, 1, 0, 0, 1],
+#                  [1, 0, 1, 1, 1],
+#                  [0, 1, 1, 1, 1]]
+dataAttribute = newListMovies
 temp = dataAttribute
+
 hasil_similarity_item_attribute = []
-
-def calculate(a, b):
-    hasil = 0
-    i = 0
-    while i < len(a):
-        if a[i] == b[i]:
-            hasil+=1
-        i+=1
-    return hasil/len(a)
     
-
-for a in range(len(dataAttribute)):
+for at in range(len(dataAttribute)):
     k = []
-    for b in range(len(temp)):
-        k.append(calculate(dataAttribute[a], temp[b]))
+    for ac in range(len(temp)):
+        k.append(len([i for i, j in zip(dataAttribute[at], temp[ac]) if i == j])/len(dataAttribute[at]))
     hasil_similarity_item_attribute.append(k)
 
-for i in hasil_similarity_item_attribute:
-    print(i)
+hasilItemAttribute = hasil_similarity_item_attribute
+# print(hasilItemAttribute)
+
+# for i in hasilItemAttribute:
+#     print(i)

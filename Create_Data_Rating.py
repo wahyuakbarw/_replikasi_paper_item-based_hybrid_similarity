@@ -1,27 +1,59 @@
-import pandas
-
-# pass in column names for each CSV
-# ratings_cols = ['user_id','movie_id','rating','unix_timestamp']
-# ratings = pandas.read_csv('ml-100k/u.data',sep='\t',names=ratings_cols,usecols=range(3), encoding='latin-1')
-# ratings.sort_values(['user_id','movie_id'], axis=0, ascending=True, inplace=True)
-# print(ratings)
-
-ratings_cols = ['user_id','movie_id','rating','unix_timestamp']
-
-# Menyimpan Data Training 1 ke DataFrame
-ratings_training_1 = pandas.read_csv('ml-100k/u1.base',sep='\t',names=ratings_cols,usecols=range(3), encoding='latin-1')
-ratings_training_1.sort_values(['user_id','movie_id'], axis=0, ascending=True, inplace=True)
-# Convert DataFrame to List
-list_ratings_training = ratings_training_1.values.tolist()
-
-# Menyimpan Data Test 1 ke DataFrame
-ratings_test_1 = pandas.read_csv('ml-100k/u1.test',sep='\t',names=ratings_cols,usecols=range(3), encoding='latin-1')
-ratings_test_1.sort_values(['user_id','movie_id'], axis=0, ascending=True, inplace=True)
-# Convert DataFrame to List
-list_ratings_test = ratings_test_1.values.tolist()
+import csv
+import copy
 
 
-"""
-Hasilnya adalah [[User ID, Movie ID, Rating], [1, 1, 5]....[943, 1330, 3]]
-"""
 
+print("Create_Data_Rating.py")
+
+def createDataRating(listRatings):
+    listMovieRatingsComplete = []
+    jumlah_user = 943
+    jumlah_movie = 1682
+
+    ratingTiapUser = []
+    banyakDataUser = 0
+    banyakDataUserSementara = copy.deepcopy(banyakDataUser)
+    cek = True
+    
+    for row in range(1, jumlah_user+1):
+        for column in range(1, jumlah_movie+1):
+            # Perulangan untuk melihat Dataset Asli
+            for indexForCheck in range(banyakDataUserSementara, len(listRatings)):
+                if listRatings[indexForCheck][0] == row:
+                    if listRatings[indexForCheck][1] == column:
+                        cek = False
+                        banyakDataUser+=1
+                        break
+                    else:
+                        cek = True
+                else:
+                    break
+            # Jika User tidak merating Item maka ratingnya bernilai 0
+            if cek == True:
+                ratingTiapUser += [0]
+            else:
+                ratingTiapUser += [listRatings[indexForCheck][2]]
+        # Untuk melanjutkan pencarian pada data asli tanpa perlu mengulangi dari index awal
+        banyakDataUserSementara += banyakDataUser
+        banyakDataUser = 0
+        # Menambah data rating seorang user ke list semua rating
+        listMovieRatingsComplete += [ratingTiapUser]
+        ratingTiapUser = []
+
+    # print(listMovieRatingsComplete[0])
+    return listMovieRatingsComplete
+
+# import csv
+# from Import_Data_Training import  list_ratings_test, list_ratings_training
+
+# with open('dataTraining1.csv', 'w', newline='') as csvFile:
+#     writer = csv.writer(csvFile)
+#     writer.writerows(createDataRating(list_ratings_training))
+
+# csvFile.close()
+
+# with open('dataTest1.csv', 'w', newline='') as csvFile:
+#     writer = csv.writer(csvFile)
+#     writer.writerows(createDataRating(list_ratings_test))
+
+# csvFile.close()

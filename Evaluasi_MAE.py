@@ -1,57 +1,78 @@
-# import pandas
+import time
+start = time.time()
+from Import_Data_Training import list_ratings_test
+from Create_Data_Rating import createDataRating
+from Item_Attribute_Similarity_Method import hasilItemAttribute
+from Item_Rating_Similarity_Method import hasilItemBased, dataRating
+from Item_Based_Hybrid_Similarity_V2 import hybrid
+import matplotlib.pyplot as plt
+import numpy as np
 
-# # Mengambil data training fold 1
-# ratings_cols = ['user_id','movie_id','rating','unix_timestamp']
-# ratings_training = pandas.read_csv('ml-100k/u1.base',sep='\t',names=ratings_cols,usecols=range(3), encoding='latin-1')
-# ratings_training.sort_values(['user_id','movie_id'], axis=0, ascending=True, inplace=True)
-# # Mengambil data test fold 2
-# ratings_cols = ['user_id','movie_id','rating','unix_timestamp']
-# ratings_test = pandas.read_csv('ml-100k/u1.test',sep='\t',names=ratings_cols,usecols=range(3), encoding='latin-1')
-# ratings_test.sort_values(['user_id','movie_id'], axis=0, ascending=True, inplace=True)
+# Data Training
+dataTraining = dataRating
+# Data Test
+dataTest = createDataRating(list_ratings_test)
+# Hasil Item Based Similarity
+hasilItemBased = hasilItemBased
+# Hasil Item Attribute Similarity
+hasilItemAttribute = hasilItemAttribute
 
-# print("Training \n", ratings_training)
-# print("Test \n", ratings_test)
+def MeanAbsoluteError(numberOfNeighbour):
 
-from Item_Based_Hybrid_Similarity import hybrid
+    # Menghitung MAE
+    penyebut = 0
+    pembilang = 0
+    for row in range(len(dataTraining)):
+        for column in range(len(dataTraining[row])):
+            if (dataTest[row][column] != 0):
+                # Prediksi rating dikurangi rating sesungguhnya
+                pembilang += abs(hybrid(dataTraining, hasilItemBased, hasilItemAttribute, row+1, column+1, numberOfNeighbour) - dataTest[row][column])
+                # Banyaknya rating sesungguhnya
+                penyebut += 1
 
-dataTraining = [[3,2,5,4],
-[0,5,1,0],
-[2,5,0,3],
-[2,1,3,2],
-[2,0,5,5]]
+    # Hasil MAE
+    MAE = pembilang/penyebut
+    print("Hasil MAE =",MAE)
+    return MAE
 
-dataTraining_menjadiDataLengkap = dataTraining
+jumlahTetangga = [2, 5, 10, 15, 20, 25, 30, 35, 40]
+hasilMAE = []
+for tetangga in jumlahTetangga:
+    hasilMAE.append(MeanAbsoluteError(tetangga))
 
-dataTest = [[0,0,0,0],
-[2,0,0,4],
-[0,0,3,0],
-[0,0,0,0],
-[0,3,0,0]]
+y_pos = np.arange(len(jumlahTetangga))
+plt.bar(y_pos, hasilMAE, align='center', color='green')
+plt.xticks(y_pos, jumlahTetangga)
+plt.ylim([0.73, 0.89])
+plt.yticks(np.arange(0.73, 0.89, 0.02))
+plt.xlabel('Number of Neighbours')
+plt.ylabel('MAE')
+plt.title('The Result of MAE by adjusting the value of k-neighbors')
+plt.show()
+end = time.time()
+print("Waktu =", str(start-end))
 
-hasilItem = [[1.0, 0.0, 0.8, 0.4],
-            [0.0, 1.0, 0.2, 0.6],
-            [0.8, 0.2, 1.0, 0.6],
-            [0.4, 0.6, 0.6, 1.0]]
+# print(jumlahTetangga)
+# print(hasilMAE)
 
-hasilCosine = [[1.0, 0.7970533969860858, 0.9788389158235425, 0.9502621934663978],
-[0.7970533969860858, 1.0, 0.5554920598635308, 0.847579379526013],
-[0.9788389158235425, 0.5554920598635308, 0.9999999999999999, 0.9897782665572894],
-[0.9502621934663978, 0.847579379526013, 0.9897782665572894, 1.0]]
+# dataTraining = [[3,2,5,4],
+# [0,5,1,0],
+# [2,5,0,3],
+# [2,1,3,2],
+# [2,0,5,5]]
 
+# dataTest = [[0,0,0,0],
+# [1,0,0,3],
+# [0,0,4,0],
+# [0,0,0,0],
+# [0,5,0,0]]
 
-for row in range(len(dataTraining)):
-    for column in range(len(dataTraining[row])):
-        if (dataTraining[row][column] == 0 and dataTest[row][column] != 0):
-            dataTraining_menjadiDataLengkap[row][column] = hybrid(hasilCosine, hasilItem, row+1, column+1)
+# hasilItemAttribute = [[1.0, 0.0, 0.8, 0.4],
+#             [0.0, 1.0, 0.2, 0.6],
+#             [0.8, 0.2, 1.0, 0.6],
+#             [0.4, 0.6, 0.6, 1.0]]
 
-# Menghitung MAE
-penyebut = 0
-pembilang = 0
-for row in range(len(dataTraining)):
-    for column in range(len(dataTraining[row])):
-        if (dataTest[row][column] != 0):
-            pembilang += abs(dataTraining_menjadiDataLengkap[row][column] - 
-            dataTest[row][column])
-            penyebut += 1
-MAE = pembilang/penyebut
-print(MAE)
+# hasilItemBased = [[1.0, 0.7970533969860858, 0.9788389158235425, 0.9502621934663978],
+# [0.7970533969860858, 1.0, 0.5554920598635308, 0.847579379526013],
+# [0.9788389158235425, 0.5554920598635308, 1.0, 0.9897782665572894],
+# [0.9502621934663978, 0.847579379526013, 0.9897782665572894, 1.0]]

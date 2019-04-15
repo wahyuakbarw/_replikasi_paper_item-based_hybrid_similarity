@@ -15,14 +15,16 @@ listMovies = movies.values.tolist()
 
 #Membuat list kosong [[],[]....[]]
 newListMovies = [[] for _ in range(len(listMovies))]
-print(newListMovies)
+
+# list berisi index 5 sampai 18
+listIndexMovie = [i for i in range(5,19)]
 
 #Membuat list data atribut movie.
 for indexMovie in range(len(listMovies)):
     for indexInMovie in range(len(listMovies[indexMovie])):
-        if (indexInMovie==1 or indexInMovie==5 or indexInMovie==6 or indexInMovie==7 or indexInMovie==8 or indexInMovie==9 or indexInMovie==10 or indexInMovie==11 or indexInMovie==12 or indexInMovie==13 or indexInMovie==14 or indexInMovie==15 or indexInMovie==16 or indexInMovie==17 or indexInMovie==18):
+        if (indexInMovie in listIndexMovie):
             newListMovies[indexMovie].append(listMovies[indexMovie][indexInMovie])
-print(newListMovies)
+# print(newListMovies)
 
 """
     Hasilnya [[nama film, genres[0], genres[1],genres[2],genres[3],genres[4],genres[5],genres[6],genres[7],
