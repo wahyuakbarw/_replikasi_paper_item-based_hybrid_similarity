@@ -44,10 +44,10 @@ import csv
 import time
 start = time.time()
 from Read_File_Movie_Rating_Csv import readFileToList
-dataRating = readFileToList("dataTraining1.csv")
+dataRating = readFileToList("dataTraining3.csv")
 hasilItemBased = matriksim(dataRating,hasil)
 
-with open('hasilItemRatingSimilarity1.csv', 'w') as csvFile:
+with open('hasilItemRatingSimilarity3.csv', 'w', newline='') as csvFile:
     writer = csv.writer(csvFile)
     writer.writerows(hasilItemBased)
 
