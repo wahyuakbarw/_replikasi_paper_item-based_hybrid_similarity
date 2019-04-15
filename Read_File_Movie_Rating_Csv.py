@@ -9,7 +9,7 @@ def readFileToList(namaFile):
     listMovieBaru = []
     # Konversi dari string ke integer pada setiap nilai
     for row in listMovie:
-        listMovieBaru.append(list(map(int, row)))
+        listMovieBaru.append(list(map(float, row)))
     return listMovieBaru
 
 

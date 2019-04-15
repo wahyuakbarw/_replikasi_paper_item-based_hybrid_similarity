@@ -1,7 +1,7 @@
-from Create_Data_Rating import createDataRating
-from Import_Data_Training import list_ratings_training
-from Item_Attribute_Similarity_Method import hasilItemAttribute
-from Item_Rating_Similarity_Method import hasilItemBased
+# from Create_Data_Rating import createDataRating
+# from Import_Data_Training import list_ratings_training
+# from Item_Attribute_Similarity_Method import hasilItemAttribute
+# from Item_Rating_Similarity_Method import hasilItemBased
 import copy
 print("Item_Based_Hybrid_Similarity_V2.py")
 
